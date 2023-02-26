@@ -1,19 +1,22 @@
+import axios from "axios";
 import React from "react";
 
 const MockingTest = () => {
-  const handleClick3 = () => {
-    const fromTime = new Date("2023-02-23 00:00:00").getTime();
-    const toTime = new Date("2023-02-23 10:00:00").getTime();
+  const handleClick3 = async () => {
+    const fromTime = new Date("2023-02-23 01:00:00").getTime();
+    const toTime = new Date("2023-02-23 02:00:50").getTime();
 
-    fetch(`http://localhost:3000/timeseries?from=${fromTime}&to=${toTime}`)
-      .then((response) => {
-        console.log(response);
-      })
-      .then((json) => {
-        console.log(json);
+    console.log("사용자시간");
+    console.log("fromTime: ", fromTime);
+    console.log("fromTime: ", toTime);
+
+    await axios
+      .get(`http://localhost:3000/pie?from=${fromTime}&to=${toTime}`)
+      .then((res) => {
+        console.log(res);
       })
       .catch((error) => {
-        console.log(`Something Wrong: ${error}`);
+        console.log(error);
       });
   };
 

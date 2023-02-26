@@ -1,10 +1,10 @@
 function* generatePieData() {
   const services = [
-    'market_service',
-    'shop_service',
-    'cart_service',
-    'pay_service',
-    'office_service',
+    "market_service",
+    "shop_service",
+    "cart_service",
+    "pay_service",
+    "office_service",
   ];
   let i = 0;
   while (true) {
@@ -13,7 +13,7 @@ function* generatePieData() {
       const value = Math.floor(Math.random() * 30) + 1;
       data.push({ name: service, value });
     });
-    yield { data, unit: 'byte' };
+    yield { data, unit: "byte" };
     i++;
     if (i >= 360) {
       return;
@@ -32,24 +32,31 @@ const checkNull = (value) => {
 // 기준시간 2023-02-23 00:00:00
 const standardStartTime = 1677078000;
 export const pieResolver = async (req, res, ctx) => {
-  const from = checkNull(req.url.searchParams.get('from'));
-  const to = checkNull(req.url.searchParams.get('to'));
+  const from = checkNull(req.url.searchParams.get("from"));
+  const to = checkNull(req.url.searchParams.get("to"));
   if (from === null || to === null || from >= to) {
-    return res(ctx.status(422), ctx.json({ errorMessage: 'Bad request body.' }));
+    return res(
+      ctx.status(422),
+      ctx.json({ errorMessage: "Bad request body." })
+    );
   }
   const interval = 10 * 1000;
   const standardToFrom = from - standardStartTime;
+  console.log("standardToForm: ", standardToFrom);
   const indexFrom = Math.ceil(standardToFrom % 360);
-  const resultPies = { data: [], unit: 'bytes' };
+  console.log("indexFrom: ", indexFrom);
+  const resultPies = { data: [], unit: "bytes" };
   const pieDatas = [];
   let startTime = from - Math.floor(from % interval);
+  console.log("startTime: ", startTime);
   const finishTime = to - Math.floor(to % interval);
+  console.log("finishTime: ", finishTime);
   for (let dataInd = indexFrom; startTime < finishTime; dataInd++) {
     pies[dataInd].data.forEach((item, index) => {
       if (pieDatas[index]) {
         return;
       }
-      pieDatas[index] = { name: '', value: 0 };
+      pieDatas[index] = { name: "", value: 0 };
     });
     pies[dataInd].data.forEach((item, index) => {
       pieDatas[index].name = item.name;
@@ -57,6 +64,8 @@ export const pieResolver = async (req, res, ctx) => {
     });
     startTime += interval;
   }
+  console.log("돌아감");
   resultPies.data = pieDatas;
+  console.log("resultPies: ", resultPies);
   return res(ctx.json(resultPies));
 };
