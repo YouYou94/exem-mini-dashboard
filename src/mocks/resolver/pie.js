@@ -42,15 +42,11 @@ export const pieResolver = async (req, res, ctx) => {
   }
   const interval = 10 * 1000;
   const standardToFrom = from - standardStartTime;
-  console.log("standardToForm: ", standardToFrom);
   const indexFrom = Math.ceil(standardToFrom % 360);
-  console.log("indexFrom: ", indexFrom);
   const resultPies = { data: [], unit: "bytes" };
   const pieDatas = [];
   let startTime = from - Math.floor(from % interval);
-  console.log("startTime: ", startTime);
   const finishTime = to - Math.floor(to % interval);
-  console.log("finishTime: ", finishTime);
   for (let dataInd = indexFrom; startTime < finishTime; dataInd++) {
     pies[dataInd].data.forEach((item, index) => {
       if (pieDatas[index]) {
@@ -64,8 +60,6 @@ export const pieResolver = async (req, res, ctx) => {
     });
     startTime += interval;
   }
-  console.log("돌아감");
   resultPies.data = pieDatas;
-  console.log("resultPies: ", resultPies);
   return res(ctx.json(resultPies));
 };

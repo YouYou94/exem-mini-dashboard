@@ -23,7 +23,6 @@ const timeseriesDataGet = async (req, res, ctx) => {
   }
   // 기준시간 2023-02-23 00:00:00
   const standardUnixTime = new Date("2023-02-23 00:00:00").getTime();
-  console.log("기준 시간: ", standardUnixTime);
   const interval = 10 * 1000;
   const range = 720;
   const rangeTime = range * interval;
@@ -38,7 +37,6 @@ const timeseriesDataGet = async (req, res, ctx) => {
     responseData.data.push(timeseriesData[dataInd % range]);
     startTime += interval;
   }
-  console.log("데이터: ", responseData);
   return res(ctx.json(responseData));
 };
 export default timeseriesDataGet;
