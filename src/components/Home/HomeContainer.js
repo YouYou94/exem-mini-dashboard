@@ -26,14 +26,10 @@ export const HomeContainer = () => {
       Date.parse(new Date()) + 1000 * 60 * Number(time)
     ).getTime();
 
-    console.log(new Date());
-    console.log(new Date(Date.parse(new Date()) + 1000 * 60 * Number(time)));
-
     await axios
       .get(`http://localhost:3000/timeseries?from=${from}&to=${to}`)
       .then((res) => {
-        console.log(res.data);
-
+        console.log(res);
         const { data, times } = res.data;
         const arr = [];
 
@@ -51,6 +47,29 @@ export const HomeContainer = () => {
       .catch((error) => {
         console.log(error);
       });
+
+    // 60분은 오류가 난다.
+    // 30분은 오류가 날 때도 있고, 오류가 나지 않을 때도 있다.
+    // 500 에러라서 서버가 에러인 것 같은데 서버 문제인지는 확실히 모르겠다.
+    if (time !== "60") {
+      await axios
+        .get(`http://localhost:3000/pie?from=${from}&to=${to}`)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+      await axios
+        .get(`http://localhost:3000/value?from=${from}&to=${to}`)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
 
   /* chart */

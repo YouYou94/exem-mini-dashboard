@@ -39,12 +39,7 @@ export const HomePresenter = ({ timeseries, handleChange, handleClick }) => {
         <YAxis />
         <Tooltip />
         <Legend />
-        <Line
-          type="monotone"
-          dataKey="data"
-          stroke="#8884d8"
-          activeDot={{ r: 8 }}
-        />
+        <Line type="monotone" dataKey="data" stroke="#8884d8" />
       </LineChart>
     </Styled.Layout>
   );
