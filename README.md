@@ -1,70 +1,94 @@
-# Getting Started with Create React App
+# EXEM MINI DASHBOARD
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### 0. 실행 방법
 
-## Available Scripts
+<br>
 
-In the project directory, you can run:
+프로그램 실행
 
-### `npm start`
+```
+npm start
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<br>
+<br>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 1. 개발 기간
 
-### `npm test`
+_23. 02. 25 ~ 23. 03. 01_
+<br>
+<br>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 2. 사용 기술
 
-### `npm run build`
+- Javascript
+- React
+- Styled-Components
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<br>
+<br>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 3. 필수 요구 사항
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. 대시보드 앱에 보여질 차트 3종을 구현합니다.
 
-### `npm run eject`
+   - 3종의 차트는 각각 라인 차트, 파이 차트, 값 차트를 의미합니다.
+   - 라인 차트는 GET /timeseries API 의 응답 데이터를 적절히 표현할 수 있어야 합니다.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+   - 파이 차트는 GET /pie API 의 응답 데이터를 적절히 표현할 수 있어야 합니다.
+   - 값 차트는 GET /value API 의 응답 데이터를 적절히 표현할 수 있어야 합니다.
+   - 3종의 차트는 10초 주기로 데이터를 갱신해야 합니다.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. 각 차트에 보여질 데이터를 선택할 시간 범위 selector를 구현합니다.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+   - selector의 모양은 자유롭게 선택하셔도 됩니다.
+   - 시간 범위 selector의 설정 값은 대시보드 페이지의 모든 차트에 영향을 줍니다.
+   - 시간 범위 selector의 선택 가능한 옵션은 10분, 30분, 1시간 입니다.
+     ex) 주기 옵션이 10분이라면, 10분 전부터 현재 시각까지의 데이터를 차트에 반영합니다.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+<br>
+<br>
 
-## Learn More
+### 4. 과제 수행 과정
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<br>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+_23. 02. 25_
 
-### Code Splitting
+- 프로젝트 생성
+- mocking 서버 및 api 연동
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+<br>
 
-### Analyzing the Bundle Size
+_23. 02. 26_
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- `pie`에 대한 api 테스트
+- `from`과 `to`의 주기가 1시간 이상이 될 경우 500 에러 발생
+- 500 에러에 대한 원인을 찾으려고 했으나 찾지 못했음.
 
-### Making a Progressive Web App
+<br>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+_23. 02. 27 ~ 28_
 
-### Advanced Configuration
+- 차트 관련 라이브러리 다운로드 : `recharts` | `chart.js` | `react-chartjs`
+- 단일 페이지 구현을 위한 `React-Router-Dom` 사용
+- Home 컴포넌트 생성 `Presenter-Container` 패턴을 사용하여 마크업 구조와 동작 구조로 나눔
+- `Timeseries` 차트 완성
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+<br>
 
-### Deployment
+_23. 03. 01_
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- `pie` 및 `value` 차트 완성
+- 필수 요구사항 중 10초 주기로 데이터 갱신 성공
 
-### `npm run build` fails to minify
+<br>
+<br>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### 5. 프로젝트를 진행하면서 어려웠던 점
+
+- 처음으로 mock 서버를 연동하여 데이터를 받아왔는데 처음이라 그런지 세팅 방법이 어려웠고, 학습하느라 시간이 많이 걸렸습니다. 그래도 새로운 경험을 통해 새로운 기술을 배울 수 있었고, 아직은 mock을 사용하는데 저의 역량이 많이 부족하여 해당 기술의 장점에 대해 잘 파악하지 못하였으나 학습을 진행하여 해당 기술에 대해 학습을 진행할 계획입니다.
+
+- `from`과 `to`에 대한 `input` 값이 무엇인지 파악하는데 어려움이 있었습니다. 그러나 api 명세서와 `timeseries`, `pie`, `value` 코드를 하나씩 뜯어보며 `console.log`를 통해 디버깅을 하여 해당 코드의 동작 과정을 파악 후 `input` 값에 대해 알게 되었고, 과제를 진행하는데 큰 어려움이 없었습니다.
+
+- 10분 주기의 경우 연동이 잘 되나 30분 또는 1시간으로 `select`를 선택 후 진행할 경우 500 에러가 발생하는 현상이 있었습니다. 해당 오류의 경우 서버 통신의 Timeout 지연 오류나 서버 트래픽의 과부하 등이 있을 경우 발생하는 오류여서 원인을 파악하고자 시간을 변경하며 원인을 찾아내려고 했으나 결국 찾아내지 못하였습니다. 해당 어려웠던 부분에 대해 피드백을 받고자 합니다.
