@@ -9,7 +9,12 @@ import {
   Legend,
 } from "recharts";
 
-export const HomePresenter = ({ timeseries, handleChange, handleClick }) => {
+export const HomePresenter = ({
+  isChart,
+  timeseries,
+  handleChange,
+  handleClick,
+}) => {
   return (
     <Styled.Layout>
       <Styled.Title>EXEM MINI DASHBOARD</Styled.Title>
@@ -22,25 +27,31 @@ export const HomePresenter = ({ timeseries, handleChange, handleClick }) => {
         </Styled.Selector>
         <Styled.Button onClick={handleClick}>확 인</Styled.Button>
       </Styled.SelectorLayout>
-      <Styled.ChartTitle>Timeseries</Styled.ChartTitle>
-      <LineChart
-        width={1024}
-        height={300}
-        data={timeseries}
-        margin={{
-          top: 5,
-          right: 30,
-          left: 20,
-          bottom: 5,
-        }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Line type="monotone" dataKey="data" stroke="#8884d8" />
-      </LineChart>
+      {isChart ? (
+        <>
+          <Styled.ChartTitle>Timeseries</Styled.ChartTitle>
+          <LineChart
+            width={1024}
+            height={300}
+            data={timeseries}
+            margin={{
+              top: 5,
+              right: 30,
+              left: 20,
+              bottom: 5,
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Line type="monotone" dataKey="data" stroke="#8884d8" />
+          </LineChart>
+        </>
+      ) : (
+        <></>
+      )}
     </Styled.Layout>
   );
 };

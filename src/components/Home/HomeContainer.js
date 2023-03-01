@@ -4,6 +4,7 @@ import { HomePresenter } from "./HomePresenter";
 
 export const HomeContainer = () => {
   const [time, setTime] = useState(null);
+  const [isChart, setIsChart] = useState(false);
   const [timeseries, setTimeseries] = useState({
     data: [],
     times: [],
@@ -70,12 +71,15 @@ export const HomeContainer = () => {
           console.log(error);
         });
     }
+
+    setIsChart(true);
   };
 
   /* chart */
 
   return (
     <HomePresenter
+      isChart={isChart}
       timeseries={timeseries}
       handleChange={onChangeSelector}
       handleClick={onClickSelectorButton}
