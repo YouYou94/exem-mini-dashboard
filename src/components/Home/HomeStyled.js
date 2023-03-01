@@ -67,4 +67,34 @@ export const DoughnutContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  gap: 2rem;
 `;
+
+export const DoughnutDataList = styled.ul`
+  width: 15rem;
+  list-style: none;
+
+  padding: 0;
+
+  gap: 1rem;
+`;
+
+export const DoughnutDataBox = styled.li`
+  display: flex;
+  align-items: center;
+
+  gap: 1rem;
+`;
+
+export const DoughnutDataColor = styled.div`
+  width: 3rem;
+  height: 0.5rem;
+  background-color: ${(prop) => prop.color};
+`;
+
+export const DoughnutDataLabel = styled.div`
+  flex: 1;
+`;
+
+export const DoughnutDataValue = styled.div``;

@@ -64,8 +64,23 @@ export const HomePresenter = ({
                   },
                 }}
                 data={pie}
-                height={120}
+                width={100}
+                height={100}
               />
+              <Styled.DoughnutDataList>
+                {pie.labels?.map((label, index) => {
+                  return (
+                    <Styled.DoughnutDataBox key={index}>
+                      <Styled.DoughnutDataColor
+                        color={pie.datasets[0].backgroundColor[index]}
+                      />
+                      <Styled.DoughnutDataLabel>
+                        {label} ({pie.datasets[0].data[index]})
+                      </Styled.DoughnutDataLabel>
+                    </Styled.DoughnutDataBox>
+                  );
+                })}
+              </Styled.DoughnutDataList>
             </Styled.DoughnutContainer>
           ) : (
             <></>
