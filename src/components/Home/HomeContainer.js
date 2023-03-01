@@ -48,55 +48,53 @@ export const HomeContainer = () => {
     // 60분은 오류가 난다.
     // 30분은 오류가 날 때도 있고, 오류가 나지 않을 때도 있다.
     // 500 에러라서 서버가 에러인 것 같은데 서버 문제인지는 확실히 모르겠다.
-    if (time !== "60") {
-      // pie 연동
-      await axios
-        .get(`http://localhost:3000/pie?from=${from}&to=${to}`)
-        .then((res) => {
-          const labels = [];
-          const datas = [];
+    // pie 연동
+    await axios
+      .get(`http://localhost:3000/pie?from=${from}&to=${to}`)
+      .then((res) => {
+        const labels = [];
+        const datas = [];
 
-          res.data.data.map((pieData) => {
-            labels.push(pieData.name);
-            datas.push(pieData.value);
-            return 0;
-          });
-
-          setPie({
-            labels,
-            datasets: [
-              {
-                labels,
-                data: datas,
-                borderWidth: 2,
-                hoverBorderWidth: 3,
-                backgroundColor: [
-                  "rgba(238, 102, 121, 1)",
-                  "rgba(98, 181, 229, 1)",
-                  "rgba(255, 198, 0, 1)",
-                  "rgba(151, 45, 0, 1)",
-                  "rgba(199, 102, 25, 1)",
-                ],
-                fill: true,
-              },
-            ],
-          });
-        })
-        .catch((error) => {
-          console.log(error);
+        res.data.data.map((pieData) => {
+          labels.push(pieData.name);
+          datas.push(pieData.value);
+          return 0;
         });
 
-      // value 연동
-      await axios
-        .get(`http://localhost:3000/value?from=${from}&to=${to}`)
-        .then((res) => {
-          const { name, unit, value } = res.data;
-          setValue({ name, unit, value });
-        })
-        .catch((error) => {
-          console.log(error);
+        setPie({
+          labels,
+          datasets: [
+            {
+              labels,
+              data: datas,
+              borderWidth: 2,
+              hoverBorderWidth: 3,
+              backgroundColor: [
+                "rgba(238, 102, 121, 1)",
+                "rgba(98, 181, 229, 1)",
+                "rgba(255, 198, 0, 1)",
+                "rgba(151, 45, 0, 1)",
+                "rgba(199, 102, 25, 1)",
+              ],
+              fill: true,
+            },
+          ],
         });
-    }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    // value 연동
+    await axios
+      .get(`http://localhost:3000/value?from=${from}&to=${to}`)
+      .then((res) => {
+        const { name, unit, value } = res.data;
+        setValue({ name, unit, value });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const onClickSelectorButton = () => {
