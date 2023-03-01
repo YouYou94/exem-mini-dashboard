@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HomePresenter } from "./HomePresenter";
 
 export const HomeContainer = () => {
@@ -10,6 +10,7 @@ export const HomeContainer = () => {
     times: [],
   });
   const [pie, setPie] = useState({});
+  const [value, setValue] = useState(null);
 
   const onChangeSelector = (event) => {
     const { value } = event.target;
@@ -17,12 +18,7 @@ export const HomeContainer = () => {
     setTime(value);
   };
 
-  const onClickSelectorButton = async () => {
-    if (!time) {
-      alert("시간을 선택해주세요.");
-      return;
-    }
-
+  const getMocksData = async () => {
     const from = new Date().getTime();
     const to = new Date(
       Date.parse(new Date()) + 1000 * 60 * Number(time)
@@ -31,7 +27,6 @@ export const HomeContainer = () => {
     await axios
       .get(`http://localhost:3000/timeseries?from=${from}&to=${to}`)
       .then((res) => {
-        console.log(res);
         const { data, times } = res.data;
         const arr = [];
 
@@ -54,11 +49,10 @@ export const HomeContainer = () => {
     // 30분은 오류가 날 때도 있고, 오류가 나지 않을 때도 있다.
     // 500 에러라서 서버가 에러인 것 같은데 서버 문제인지는 확실히 모르겠다.
     if (time !== "60") {
+      // pie 연동
       await axios
         .get(`http://localhost:3000/pie?from=${from}&to=${to}`)
         .then((res) => {
-          //console.log(res);
-          console.log(res.data.data);
           const labels = [];
           const datas = [];
 
@@ -92,6 +86,7 @@ export const HomeContainer = () => {
           console.log(error);
         });
 
+      // value 연동
       await axios
         .get(`http://localhost:3000/value?from=${from}&to=${to}`)
         .then((res) => {
@@ -102,10 +97,28 @@ export const HomeContainer = () => {
         });
     }
 
-    setIsChart(true);
+    console.log("도는 중");
   };
 
-  /* chart */
+  const onClickSelectorButton = () => {
+    if (!time) {
+      alert("시간을 선택해주세요.");
+      return;
+    }
+
+    setIsChart(true);
+
+    getMocksData();
+  };
+
+  /* 10초 주기 갱신 */
+  useEffect(() => {
+    let timer = setInterval(() => {
+      getMocksData();
+    }, 10000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <HomePresenter
