@@ -60,3 +60,11 @@ export const Button = styled.button`
 export const ChartTitle = styled.h2`
   font-size: 2rem;
 `;
+
+export const DoughnutContainer = styled.div`
+  flex: 1;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;

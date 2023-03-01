@@ -8,13 +8,18 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
+import { Doughnut } from "react-chartjs-2";
+import { Chart, ArcElement } from "chart.js";
+Chart.register(ArcElement);
 
 export const HomePresenter = ({
   isChart,
   timeseries,
+  pie,
   handleChange,
   handleClick,
 }) => {
+  console.log(pie);
   return (
     <Styled.Layout>
       <Styled.Title>EXEM MINI DASHBOARD</Styled.Title>
@@ -31,7 +36,7 @@ export const HomePresenter = ({
         <>
           <Styled.ChartTitle>Timeseries</Styled.ChartTitle>
           <LineChart
-            width={1024}
+            width={800}
             height={300}
             data={timeseries}
             margin={{
@@ -48,6 +53,23 @@ export const HomePresenter = ({
             <Legend />
             <Line type="monotone" dataKey="data" stroke="#8884d8" />
           </LineChart>
+          <Styled.ChartTitle>Pie</Styled.ChartTitle>
+          {pie ? (
+            <Styled.DoughnutContainer>
+              <Doughnut
+                options={{
+                  legend: {
+                    display: true,
+                    position: "right",
+                  },
+                }}
+                data={pie}
+                height={120}
+              />
+            </Styled.DoughnutContainer>
+          ) : (
+            <></>
+          )}
         </>
       ) : (
         <></>

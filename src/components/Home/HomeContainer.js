@@ -9,6 +9,7 @@ export const HomeContainer = () => {
     data: [],
     times: [],
   });
+  const [pie, setPie] = useState({});
 
   const onChangeSelector = (event) => {
     const { value } = event.target;
@@ -56,7 +57,36 @@ export const HomeContainer = () => {
       await axios
         .get(`http://localhost:3000/pie?from=${from}&to=${to}`)
         .then((res) => {
-          console.log(res);
+          //console.log(res);
+          console.log(res.data.data);
+          const labels = [];
+          const datas = [];
+
+          res.data.data.map((pieData) => {
+            labels.push(pieData.name);
+            datas.push(pieData.value);
+            return 0;
+          });
+
+          setPie({
+            labels,
+            datasets: [
+              {
+                labels,
+                data: datas,
+                borderWidth: 2,
+                hoverBorderWidth: 3,
+                backgroundColor: [
+                  "rgba(238, 102, 121, 1)",
+                  "rgba(98, 181, 229, 1)",
+                  "rgba(255, 198, 0, 1)",
+                  "rgba(151, 45, 0, 1)",
+                  "rgba(199, 102, 25, 1)",
+                ],
+                fill: true,
+              },
+            ],
+          });
         })
         .catch((error) => {
           console.log(error);
@@ -81,6 +111,7 @@ export const HomeContainer = () => {
     <HomePresenter
       isChart={isChart}
       timeseries={timeseries}
+      pie={pie}
       handleChange={onChangeSelector}
       handleClick={onClickSelectorButton}
     />
