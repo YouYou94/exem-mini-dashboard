@@ -71,7 +71,6 @@ _23. 02. 26_
 _23. 02. 27 ~ 28_
 
 - 차트 관련 라이브러리 다운로드 : `recharts` | `chart.js` | `react-chartjs`
-- 단일 페이지 구현을 위한 `React-Router-Dom` 사용
 - Home 컴포넌트 생성 `Presenter-Container` 패턴을 사용하여 마크업 구조와 동작 구조로 나눔
 - `Timeseries` 차트 완성
 
