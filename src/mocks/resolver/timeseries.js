@@ -14,7 +14,6 @@ const timeseriesDataGet = async (req, res, ctx) => {
   };
   const from = checkNull(req.url.searchParams.get("from"));
   const to = checkNull(req.url.searchParams.get("to"));
-  console.log("from, to: ", from, ", ", to);
   if (from === null || to === null || from >= to) {
     return res(
       ctx.status(422),
