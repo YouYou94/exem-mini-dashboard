@@ -58,7 +58,14 @@ export const Button = styled.button`
 `;
 
 export const ChartTitle = styled.h2`
+  width: 100%;
+
+  padding-top: 1.5rem;
+
   font-size: 2rem;
+  text-align: center;
+
+  border-top: 1px solid rgb(45, 45, 45);
 `;
 
 export const DoughnutContainer = styled.div`
@@ -97,4 +104,32 @@ export const DoughnutDataLabel = styled.div`
   flex: 1;
 `;
 
-export const DoughnutDataValue = styled.div``;
+export const ValueContainer = styled.div`
+  width: 100%;
+  height: 25rem;
+
+  display: flex;
+  justify-content: center;
+`;
+
+export const ValueBox = styled.div`
+  width: 30rem;
+  height: 15rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  border: 1px solid rgb(45, 45, 45);
+`;
+
+export const ValueName = styled.label`
+  font-size: 2rem;
+  font-weight: bold;
+`;
+
+export const ValueLabel = styled.label`
+  font-size: 4rem;
+  font-weight: bold;
+`;

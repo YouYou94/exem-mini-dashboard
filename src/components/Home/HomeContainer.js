@@ -90,14 +90,13 @@ export const HomeContainer = () => {
       await axios
         .get(`http://localhost:3000/value?from=${from}&to=${to}`)
         .then((res) => {
-          console.log(res);
+          const { name, unit, value } = res.data;
+          setValue({ name, unit, value });
         })
         .catch((error) => {
           console.log(error);
         });
     }
-
-    console.log("도는 중");
   };
 
   const onClickSelectorButton = () => {
@@ -125,6 +124,7 @@ export const HomeContainer = () => {
       isChart={isChart}
       timeseries={timeseries}
       pie={pie}
+      value={value}
       handleChange={onChangeSelector}
       handleClick={onClickSelectorButton}
     />

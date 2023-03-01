@@ -16,10 +16,10 @@ export const HomePresenter = ({
   isChart,
   timeseries,
   pie,
+  value,
   handleChange,
   handleClick,
 }) => {
-  console.log(pie);
   return (
     <Styled.Layout>
       <Styled.Title>EXEM MINI DASHBOARD</Styled.Title>
@@ -34,7 +34,7 @@ export const HomePresenter = ({
       </Styled.SelectorLayout>
       {isChart ? (
         <>
-          <Styled.ChartTitle>Timeseries</Styled.ChartTitle>
+          <Styled.ChartTitle>Timeseries Chart</Styled.ChartTitle>
           <LineChart
             width={800}
             height={300}
@@ -53,7 +53,7 @@ export const HomePresenter = ({
             <Legend />
             <Line type="monotone" dataKey="data" stroke="#8884d8" />
           </LineChart>
-          <Styled.ChartTitle>Pie</Styled.ChartTitle>
+          <Styled.ChartTitle>Pie Chart</Styled.ChartTitle>
           {pie ? (
             <Styled.DoughnutContainer>
               <Doughnut
@@ -85,6 +85,15 @@ export const HomePresenter = ({
           ) : (
             <></>
           )}
+          <Styled.ChartTitle>Value Chart</Styled.ChartTitle>
+          <Styled.ValueContainer>
+            <Styled.ValueBox>
+              <Styled.ValueName>{value?.name}</Styled.ValueName>
+              <Styled.ValueLabel>
+                {value?.value} {value?.unit}
+              </Styled.ValueLabel>
+            </Styled.ValueBox>
+          </Styled.ValueContainer>
         </>
       ) : (
         <></>
